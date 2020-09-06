@@ -50,7 +50,7 @@ Mathematically, the STA is the average stimulus preceding a spike.[1][2][3][4] T
 
 Having, $x(t)$ as the input signal as a function of time $t$ and the output signal denoted by $y(t)$:
 
-1. $y(t) = \int_{0}^{\infty} e^{\tau}x(t - \tau) \, d\tau$
+1. $$y(t) = \int_{0}^{\infty} e^{\tau}x(t - \tau) \, d\tau$$
 
 2. $y(t) = \sum_{n=0}^{\infty} a^{n} x(t - n\tau)$ where $a$ is between 0 and 1 and $\tau$ is positive.
 
