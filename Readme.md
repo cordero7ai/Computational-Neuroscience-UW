@@ -38,4 +38,100 @@ Linear Algebra notes: [http://www.cns.nyu.edu/~eero/NOTES/geomLinAlg.pdf](http:/
 
 ### Summary
 
-This repository contains files that correspond to different tasks, projects and notes from the course. The code is written in MATLAB and Python. 
+This repository contains files that correspond to different tasks, projects and notes from the course. The code is written in MATLAB/OCTAVE (*.m) and Python (*.py). 
+
+## 1. Spike Triggered Averages: A Glimpse Into Neural Encoding
+
+According to [https://en.wikipedia.org/wiki/Spike-triggered_average](https://en.wikipedia.org/wiki/Spike-triggered_average); The spike-triggered average (STA) is a tool for characterizing the response properties of a neuron using the spikes emitted in response to a time-varying stimulus. The STA provides an estimate of a neuron's linear receptive field. It is a useful technique for the analysis of electrophysiological data. 
+
+Mathematically, the STA is the average stimulus preceding a spike.[1][2][3][4] To compute the STA, the stimulus in the time window preceding each spike is extracted, and the resulting (spike-triggered) stimuli are averaged (see diagram). The STA provides an unbiased estimate of a neuron's receptive field only if the stimulus distribution is spherically symmetric (e.g., Gaussian white noise).
+
+### Examples of Linear Filtering Systems
+
+Having, $x(t)$ as the input signal as a function of time $t$ and the output signal denoted by $y(t)$:
+
+1. $y(t) = \int_{0}^{\infty} e^{\tau}x(t - \tau) \, d\tau$
+
+2. $y(t) = \sum_{n=0}^{\infty} a^{n} x(t - n\tau)$ where $a$ is between 0 and 1 and $\tau$ is positive.
+
+3. $y(t) = 3x(t) - 5x(t - \tau)$ where $\tau$ is positive.
+
+- $y(t) = cos[x(t - \theta)]$ does not contain a convolution and thus, is not a LFS.
+
+
+### STA for a Neuron
+
+STA is the stimuli preceding a spike, averaged over all stimuli that elicited a spike.
+
+### Sampling Period
+
+Given that the sampling rate for the dataset was 500 Hz and the vectors have a dimmension of 600000, the sampling period is $\frac{600000}{500} \times \frac{1}{600} = 2$ ms.
+
+### Number of Time Steps
+
+We wish to compute the spike-triggered average for this neuron over a window of width 300 ms. Suppose we do not care about the value exactly 300 ms before the spike. therefore, the number of time steps for the resulting spike-triggered average vector is $\frac{300}{2}=150$ ms.
+
+### Total Number of Spikes
+
+In order to calculate the average, it is necessary for us to know how many time windows (stimulus vectors) we are averaging over. This is equal to the number of observed spikes. We Wrote  the code to calculate the total number of spikes in the data set c1p8.mat. Having as the result 53583 spikes.
+
+```
+"""
+In Python:
+"""
+
+spike_times = rho[num_timesteps:].nonzero()[0] + num_timesteps
+
+num_spikes = len(spike_times)
+
+print(num_spikes)
+
+%%%%
+% In MATLAB/OCTAVE
+
+num_spikes = size(spike_times,1);
+```
+
+### Computation of the Spike-Triggered Average
+
+The spike-triggered average is the element-wise mean of the time windows starting 300 ms before (exclusive) and ending 0 ms before a spike. The following code computes the STA:
+
+```
+"""
+In Python: 
+"""
+for i in range(num_spikes):
+        AllWindows = stim[(spike_times[i] - num_timesteps):spike_times[i]]
+        sta = sta + AllWindows
+    sta = sta/num_spikes
+
+%%%%%
+% In MATLAB/OCTAVE
+
+ for i=1:num_spikes
+            AllWindows=stim(spike_times(i)-num_timesteps+1:spike_times(i));
+            sta = sta + AllWindows;
+        end
+    
+    sta=sta/num_spikes;
+```
+
+The resulting STA is shown is the next Figure:
+
+![STA](./week2/spikePython.jpg)
+
+
+### Mathematical Operation of the Stimulus
+
+The nature of this neuron is the Leaky integration operation in order to make computations.
+
+### Most Likely Stimuli
+
+Given that all non-zero values of the stimulus have the same magnitude. That is, assume that all positive stimuli have a value of $c$ and all negative stimuli have a value of $-c$ where $c > 0$. The neuron is more strongly/likely to respond to a **constant positive value**.
+
+### More Features
+
+If we had more features that affected the spikes, then we could use PCA to determine which modes (features) have a correlated effect with the neuron.
+
+**Please refer to the STA.py and STA.m source files in the week 2 folder for details.**
+
