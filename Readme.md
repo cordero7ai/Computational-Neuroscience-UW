@@ -50,7 +50,7 @@ Mathematically, the STA is the average stimulus preceding a spike.[1][2][3][4] T
 
 Having, $x(t)$ as the input signal as a function of time $t$ and the output signal denoted by $y(t)$:
 
-1. $$y(t) = \int_{0}^{\infty} e^{\tau}x(t - \tau) \, d\tau$$
+1. $y(t) = \int_{0}^{\infty} e^{\tau}x(t - \tau) \, d\tau$
 
 2. $y(t) = \sum_{n=0}^{\infty} a^{n} x(t - n\tau)$ where $a$ is between 0 and 1 and $\tau$ is positive.
 
@@ -135,3 +135,39 @@ If we had more features that affected the spikes, then we could use PCA to deter
 
 **Please refer to the STA.py and STA.m source files in the week 2 folder for details.**
 
+## 2. Neural Decoding
+
+A practical example: 
+
+Suppose we have a stimulus defined by a single variable called ss. ss can take one of two values, which we will call $s_1$ and $s_2$. You could think of these as lights flashing in the eyes at one of two possible frequencies. Or perhaps listening to punk rock vs. listening to Dvorak.
+
+Let's call the firing rate response of a neuron to this stimulus $r$.
+
+Suppose that under stimulus $s_1$ the response rate of the neuron can be roughly approximated with a Gaussian distribution with the following parameters: $\mu = 5$, $\sigma = 0.5$.
+
+and for $s_2$: $\mu = 7$ and $\sigma = 1$. Lets say that both stimuli are equally likely and we are given no other prior information. Now let's throw in another twist. Let's say that we receive a measurement of the neuron's response and want to guess which stimulus was presented, but that to us, it is twice as bad to mistakenly think it is s_2  than to mistakenly think it is s_1.
+
+### Which firing rate would make the best decision threshold for us in determining the value of s given a neuron's firing rate?
+
+**5.978** found with the following code:
+
+```
+%In matlab inside week3 folder on file stimuli.m
+
+pkg load symbolic
+syms s
+s_threshold = solve(2*normpdf(s,5,0.5)==normpdf(s,7,1),s)
+print(s_threshold)
+```
+
+### Suppose we are diagnosing a very rare illness, which happens only once in 100 million people on average. Luckily, we have a test for this illness but it is not perfectly accurate. If somebody has the disease, it will report positive 99% of the time. If somebody does not have the disease, it will report positive 2% of the time. Suppose a patient walks in and tests positive for the disease. Using the maximum likelihood (ML) criterion, would we diagnose them positive?
+
+**Yes** 
+
+### What if we used the maximum a posteriori (MAP) criterion?
+
+**No**
+
+### Why do we see a difference between the two criteria, if there is one?
+
+**The role of prior probability is different between the two. **
