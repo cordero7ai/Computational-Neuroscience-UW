@@ -170,4 +170,42 @@ print(s_threshold)
 
 ### Why do we see a difference between the two criteria, if there is one?
 
-**The role of prior probability is different between the two. **
+**The role of prior probability is different between the two.**
+
+## 3. Information Theory and Neural Coding
+
+This subject is mainly related to information theory, please check the notes related to entropy (fancy mathematical way of saying uncertainty) and mutual information.
+
+- Suppose that we have a neuron which, in a given time period, will fire with probability 0.1, yielding a Bernoulli distribution for the neuron's firing (denoted by the random variable F = 0 or 1) with P(F = 1) = 0.1.
+What is the entropy of P?
+
+**0.4690**
+```
+"""
+In python
+"""
+
+def getEntropy():
+    from math import log2
+    print((-0.1 * log2(0.1) - 0.9 * log2(0.9)))
+```
+
+- Now lets add a stimulus to the picture. Suppose that we think this neuron's activity is related to a light flashing in the eye. Let us say that the light is flashing in a given time period with probability 0.10. Call this stimulus random variable SS.
+If there is a flash, the neuron will fire with probability 1/2. If there is not a flash, the neuron will fire with probability 1/18. Call this random variable FF (whether the neuron fires or not).
+Which of these is closest, in bits (log base 2 units), to the mutual information MI(S,F)?
+
+**0.0904**
+
+- Suppose we want to build a complex image. We could do that by layering a whole bunch of pieces together (mathematically - summing). This is like drawing on transparencies with various levels of opacity and putting them on top of each other. Those familiar with Photoshop or Gimp will recognize that concept. If we had to build an image in Photoshop with a bicycle on a road, for instance, perhaps we could have an image of a sky, and one of the road, and one of the bike. We could "add" these pieces together to make our target image.
+
+Of course, if our neural system was trying to make visual fields that worked for any sort of input, we would want more than just roads, skies, and bikes to work with! One possibility is to have a bunch of generic shapes of various sizes, orientations, and locations within the image. If we chose the right variety, we could blend/sum these primitive pieces together to make just about any image! One way to blend them is to let them have varying transparencies/opacities, and to set them on top of each other. That is what we would call a weighted sum, where the weights are how transparent each piece is.
+
+Of course, we may not want to have too many possible shapes to use. As mentioned in the video, the organism likely wants to conserve energy. That means having as few neurons firing as possible at once. If we conceptually make a correlation between these shapes and the neurons, then we can point out we would want to use as few shapes as we could while maintaining an accurate image.
+
+This math gives us a way of summing a bunch of pieces together to represent an image, to attempt to make that representation look as much like the image as possible, and to make that representation efficient - using as few pieces as possible. That is a lot of work for two lines of math!
+
+**The pieces that make up the image.**
+
+- Check the .py and .m scripts for a description of the exercises of the week.
+
+## 4.  
