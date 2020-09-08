@@ -214,4 +214,6 @@ This math gives us a way of summing a bunch of pieces together to represent an i
 
 **voltage**
 
+![plot 1](./week5/plot2.png)
+
 ## 5. 
