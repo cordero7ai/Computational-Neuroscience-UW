@@ -208,4 +208,10 @@ This math gives us a way of summing a bunch of pieces together to represent an i
 
 - Check the .py and .m scripts for a description of the exercises of the week.
 
-## 4.  
+## 4. Computing in Carbon
+
+- When we talk about "spikes", we are referring to the change in some property of the neuron over time. When we typically plot a spike, the x-axis represents time. What does the y-axis represent?
+
+**voltage**
+
+## 5. 
