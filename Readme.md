@@ -216,4 +216,8 @@ This math gives us a way of summing a bunch of pieces together to represent an i
 
 ![plot 1](./week5/plot2.png)
 
-## 5. 
+## 5. Computing with Networks
+
+Please refer to the notes on linear and nonlinear recurrent networks and the scripts in the week 6 folder.
+
+## 6. 
