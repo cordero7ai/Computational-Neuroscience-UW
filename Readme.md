@@ -220,4 +220,8 @@ This math gives us a way of summing a bunch of pieces together to represent an i
 
 Please refer to the notes on linear and nonlinear recurrent networks and the scripts in the week 6 folder.
 
-## 6. 
+## 6. Networks that Learn
+
+Subjects covered: Gradient ascent/descent, generative models, EM Algorithm, feedforward networks, recurrent networks. maximum likelihood, Bayes rule.
+
+## 7. 
