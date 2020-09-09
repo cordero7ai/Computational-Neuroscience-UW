@@ -224,4 +224,6 @@ Please refer to the notes on linear and nonlinear recurrent networks and the scr
 
 Subjects covered: Gradient ascent/descent, generative models, EM Algorithm, feedforward networks, recurrent networks. maximum likelihood, Bayes rule.
 
-## 7. 
+## 7. Learning from Supervision and Rewards
+
+Topics: Reinforcement learning, policy.
